@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { useAccount, useDisconnect } from 'wagmi'
-import { Wallet, Home, Plus, ShoppingBag, LayoutDashboard, Sparkles, Vote } from 'lucide-react'
+import { useAccount } from 'wagmi'
+import {  Home, Plus, ShoppingBag, LayoutDashboard, Sparkles, Vote } from 'lucide-react'
 import WalletButton from './WalletButton'
 import ChainChecker from './ChainChecker'
 

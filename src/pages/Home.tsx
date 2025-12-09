@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useAccount } from 'wagmi'
-import { Sparkles, TrendingUp, Users, DollarSign, ArrowRight, Zap } from 'lucide-react'
+import { Sparkles, TrendingUp, DollarSign, ArrowRight, Zap } from 'lucide-react'
 
 export default function Home() {
   const { isConnected } = useAccount()

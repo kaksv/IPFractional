@@ -10,6 +10,8 @@ import "./IPFractionalizer.sol";
  * @title RoyaltyDistributor
  * @dev Automatically distributes licensing revenue to creator and fractional owners
  */
+
+// The Contract address of the Deployed Contract on the Aeneid Testnet is 0xD5Cdc282BE2e7762Ce9f13684B9430910a38357e
 contract RoyaltyDistributor is Ownable, ReentrancyGuard {
     IPAssetRegistry public ipAssetRegistry;
     IPFractionalizer public ipFractionalizer;

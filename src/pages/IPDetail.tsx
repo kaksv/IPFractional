@@ -1,15 +1,15 @@
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useAccount } from 'wagmi'
 import { useState, useMemo } from 'react'
-import { DollarSign, Users, TrendingUp, Vote, Share2, Loader2, CheckCircle2, AlertCircle } from 'lucide-react'
+import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react'
 import { useIPAsset, useFractionalization, usePurchaseFractions } from '../hooks/useIPContracts'
 import { formatEther } from 'viem'
 import { useStoryChain } from '../hooks/useStoryChain'
 
 export default function IPDetail() {
   const { id } = useParams<{ id: string }>()
-  const { address, isConnected } = useAccount()
-  const navigate = useNavigate()
+  const {  isConnected } = useAccount()
+//   const navigate = useNavigate()
   const { isCorrectChain } = useStoryChain()
   const [purchaseAmount, setPurchaseAmount] = useState('')
   

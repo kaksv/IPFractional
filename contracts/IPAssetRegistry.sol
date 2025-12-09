@@ -9,6 +9,8 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
  * @dev Registry for Intellectual Property Assets on Story Protocol
  * Each IP Asset represents a creative work (story, character, song, etc.)
  */
+
+// The Contract address of the Deployed Contract on the Aeneid Testnet is 0x3d3212874efB3E770597716d72518c9649FBDAA6
 contract IPAssetRegistry is Ownable, ReentrancyGuard {
     struct IPAsset {
         uint256 id;

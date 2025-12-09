@@ -1,6 +1,6 @@
 import { useAccount } from 'wagmi'
 import { useState } from 'react'
-import { DollarSign, TrendingUp, Package, Vote, ArrowUpRight, Loader2 } from 'lucide-react'
+import { DollarSign, TrendingUp, Package, ArrowUpRight, Loader2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useUserPortfolio, useUserRoyalties } from '../hooks/useUserPortfolio'
 import { useClaimRoyalties } from '../hooks/useIPContracts'
@@ -198,7 +198,7 @@ export default function Dashboard() {
                         <p className="text-sm text-gray-600">
                           {token.amount.toLocaleString()} tokens ({token.percentage.toFixed(2)}% ownership)
                         </p>
-                        {token.ipAsset.pricePerFraction && (
+                        {'pricePerFraction' in token.ipAsset && typeof token.ipAsset.pricePerFraction === 'string' && (
                           <p className="text-sm text-gray-500 mt-1">
                             Value: {(token.amount * parseFloat(token.ipAsset.pricePerFraction)).toFixed(4)} IP
                           </p>

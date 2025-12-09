@@ -79,13 +79,16 @@ export function useUserPortfolio() {
         .length
       
       if (balanceIndex >= balancesData.length) return
-      
+
       const balanceResult = balancesData[balanceIndex]
-      if (balanceResult.status !== 'success' || !balanceResult.data) return
-      
-      const balance = balanceResult.data as bigint
+      if (
+        balanceResult.status !== 'success' ||
+        typeof balanceResult.result === 'undefined'
+      ) return
+
+      const balance = balanceResult.result as bigint
       if (balance === 0n) return // User doesn't own any tokens for this asset
-      
+
       const amount = Number(balance)
       const percentage = (amount / asset.totalSupply) * 100
 
@@ -105,7 +108,11 @@ export function useUserPortfolio() {
   // Calculate total portfolio value (using price per fraction * amount owned)
   const totalValue = useMemo(() => {
     return ownedTokens.reduce((sum, token) => {
-      const pricePerFraction = parseFloat(token.ipAsset.pricePerFraction || '0')
+      // Check if pricePerFraction exists and is a valid number
+      const priceString = (token.ipAsset as any).pricePerFraction
+      const pricePerFraction = typeof priceString === 'string' && !isNaN(Number(priceString))
+        ? parseFloat(priceString)
+        : 0
       return sum + (token.amount * pricePerFraction)
     }, 0)
   }, [ownedTokens])
@@ -127,9 +134,9 @@ export function useUserPortfolio() {
       if (royaltyIndex >= royaltiesData.length) return sum
       
       const royaltyResult = royaltiesData[royaltyIndex]
-      if (royaltyResult.status !== 'success' || !royaltyResult.data) return sum
+      if (royaltyResult.status !== 'success' || typeof royaltyResult.result === 'undefined') return sum
       
-      const claimable = royaltyResult.data as bigint
+      const claimable = royaltyResult.result as bigint
       return sum + parseFloat(formatEther(claimable))
     }, 0)
   }, [ownedTokens, royaltiesData, ipAssets])
@@ -209,18 +216,19 @@ export function useUserRoyalties() {
       if (distIndex >= distributionsData.length) return
       
       const distResult = distributionsData[distIndex]
-      if (distResult.status !== 'success' || !distResult.data) return
-      
-      const history = distResult.data as any[]
-      if (!Array.isArray(history) || history.length === 0) return
+      // Adjust to access the correct data property according to lint error context
+      if (distResult.status !== 'success' || !Array.isArray(distResult.result)) return
+
+      const history = distResult.result
+      if (history.length === 0) return
 
       // Get ownership percentage
       let ownershipPercentage = 0
       if (ownershipData && Array.isArray(ownershipData) && ownershipData[tokenIndex]) {
         const ownershipResult = ownershipData[tokenIndex]
-        if (ownershipResult.status === 'success' && ownershipResult.data) {
+        if (ownershipResult.status === 'success' && ownershipResult.result !== undefined) {
           // Ownership percentage is returned with 2 decimal precision (e.g., 500 = 5.00%)
-          ownershipPercentage = Number(ownershipResult.data) / 100
+          ownershipPercentage = Number(ownershipResult.result) / 100
         }
       }
 

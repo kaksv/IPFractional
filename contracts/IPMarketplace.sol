@@ -10,6 +10,8 @@ import "./IPFractionalizer.sol";
  * @title IPMarketplace
  * @dev Secondary marketplace for trading fractional IP tokens
  */
+
+// The Contract address of the Deployed Contract on the Aeneid Testnet is 0x0433A8e6f1b6B9B9d3013A136653D0b47d1397b6
 contract IPMarketplace is Ownable, ReentrancyGuard {
     IPFractionalizer public ipFractionalizer;
     

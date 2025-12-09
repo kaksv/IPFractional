@@ -9,6 +9,9 @@ import "./IPFractionalizer.sol";
  * @title IPGovernance
  * @dev Governance contract for fractional IP token holders to vote on proposals
  */
+
+// The Contract address of the Deployed Contract on the Aeneid Testnet is 0x3FCE1e160ff4cb8e4f10ca167ea6E85818B5320B
+
 contract IPGovernance is Ownable, ReentrancyGuard {
     IPFractionalizer public ipFractionalizer;
     

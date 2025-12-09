@@ -11,6 +11,8 @@ import "./IPAssetRegistry.sol";
  * @dev ERC-1155 contract for fractionalizing IP Assets into tradeable tokens
  * Each IP Asset can be split into a configurable number of fractional tokens
  */
+
+// The Contract address of the Deployed Contract on the Aeneid Testnet is 0x62212802924AEe885E148049d3F3355298aEDf69
 contract IPFractionalizer is ERC1155, Ownable, ReentrancyGuard {
     IPAssetRegistry public ipAssetRegistry;
     

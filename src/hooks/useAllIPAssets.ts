@@ -90,17 +90,18 @@ export function useAllIPAssets() {
 
     const processed = ipAssetsData
       .map((result, index) => {
-        // Handle both success and error cases
-        if (result.status === 'error') {
-          console.warn(`Failed to fetch IP Asset #${index + 1}:`, result.error)
+        // Backward compatibility: handle possible error status as 'failure'
+        if (result.status === 'failure') {
+          // Some contract hooks use 'failure' instead of 'error'
+          console.warn(`Failed to fetch IP Asset #${index + 1}:`, (result as any).error)
           return null
         }
 
-        if (!result.data || result.status !== 'success') {
+        if (result.status !== 'success' || !result.result) {
           return null
         }
 
-        const ipAsset = result.data as any
+        const ipAsset = result.result as any
         
         // Validate that we have the expected structure
         if (!ipAsset || typeof ipAsset !== 'object') {
@@ -111,8 +112,8 @@ export function useAllIPAssets() {
         let fractionalization: any = null
         if (fractionalizationData && Array.isArray(fractionalizationData) && fractionalizationData[index]) {
           const fracResult = fractionalizationData[index]
-          if (fracResult.status === 'success' && fracResult.data) {
-            fractionalization = fracResult.data
+          if (fracResult.status === 'success' && fracResult.result) {
+            fractionalization = fracResult.result
           }
           // Silently ignore errors for fractionalization (asset might not be fractionalized)
         }
