@@ -62,3 +62,4 @@ Optional: Add WalletConnect project ID to `.env.local`:
 VITE_WALLETCONNECT_PROJECT_ID=your-project-id
 ```
 
+
