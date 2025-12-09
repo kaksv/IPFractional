@@ -159,7 +159,7 @@ export function useUserRoyalties() {
   const isCorrectChain = chainId === storyTestnet.id
   
   // Get all IP assets
-  const { ipAssets, isLoading: isLoadingAssets } = useAllIPAssets()
+  const {  isLoading: isLoadingAssets } = useAllIPAssets()
   
   // Get user's portfolio to know which assets they own
   const { ownedTokens } = useUserPortfolio()
