@@ -167,7 +167,7 @@ Before you begin, ensure you have:
 
 ```bash
 git clone <repository-url>
-cd story-cursor
+cd <repo directory>
 ```
 
 ### Step 2: Install Dependencies
